@@ -1,7 +1,6 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
-const { title } = require('process')
 const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 
@@ -31,7 +30,7 @@ app.get('', (req, res) => {
 //checking
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: 'About Robot',
+        title: 'About',
         name: 'Pratik'
     })
 })
@@ -57,15 +56,23 @@ app.get('/weather', (req, res) => {
             return res.send({ error })
         }
 
-        forecast(latitude, longitude, (error, { temperature, feelslike }) => {
+        forecast(latitude, longitude, (error, { time, weather, temperature, feelslike, rain, cloud, humid, wind }) => {
+            time = time.split(" ").pop();
+
             if (error) {
                 return res.send({ error })
             }
 
             res.send({
-                Temperature: temperature,
-                Feelslike: feelslike,
-                Location: location
+                location,
+                time,
+                weather,
+                temperature,
+                feelslike,
+                rain,
+                cloud,
+                humid, 
+                wind
             })
         })
     })
