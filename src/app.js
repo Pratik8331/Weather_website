@@ -46,7 +46,7 @@ app.get('/help', (req, res) => {
 app.get('/weather', (req, res) => {
     if (!req.query.address) {
         return res.send({
-            error: 'Please enter an address'
+            error: 'Please enter an address!'
         })
     }
 
@@ -71,7 +71,7 @@ app.get('/weather', (req, res) => {
                 feelslike,
                 rain,
                 cloud,
-                humid, 
+                humid,
                 wind
             })
         })
